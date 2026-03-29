@@ -1,7 +1,6 @@
 <template>
   <!-- Custom Home Content: Full Page Mode -->
   <div v-if="homeContent" class="min-h-screen">
-    <!-- iframe mode -->
     <iframe
       v-if="isHomeContentUrl"
       :src="homeContent.trim()"
@@ -12,418 +11,339 @@
     <div v-else v-html="homeContent"></div>
   </div>
 
-  <!-- Default Home Page -->
-  <div
-    v-else
-    class="relative flex min-h-screen flex-col overflow-hidden bg-gradient-to-br from-gray-50 via-primary-50/30 to-gray-100 dark:from-dark-950 dark:via-dark-900 dark:to-dark-950"
-  >
-    <!-- Background Decorations -->
+  <!-- Default Home Page — Tech Redesign -->
+  <div v-else class="home-root relative flex min-h-screen flex-col overflow-hidden">
+
+    <!-- ══════════════════════════════════════════
+         BACKGROUND
+    ══════════════════════════════════════════ -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        class="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-primary-400/20 blur-3xl"
-      ></div>
-      <div
-        class="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-primary-500/15 blur-3xl"
-      ></div>
-      <div
-        class="absolute left-1/3 top-1/4 h-72 w-72 rounded-full bg-primary-300/10 blur-3xl"
-      ></div>
-      <div
-        class="absolute bottom-1/4 right-1/4 h-64 w-64 rounded-full bg-primary-400/10 blur-3xl"
-      ></div>
-      <div
-        class="absolute inset-0 bg-[linear-gradient(rgba(20,184,166,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.03)_1px,transparent_1px)] bg-[size:64px_64px]"
-      ></div>
+      <!-- Glow orbs -->
+      <div class="orb orb-tr"></div>
+      <div class="orb orb-bl"></div>
+      <div class="orb orb-center"></div>
+      <!-- Grid -->
+      <div class="grid-overlay"></div>
+      <!-- Scan line -->
+      <div class="scan-line"></div>
     </div>
 
-    <!-- Header -->
-    <header class="relative z-20 px-6 py-4">
+    <!-- ══════════════════════════════════════════
+         HEADER
+    ══════════════════════════════════════════ -->
+    <header class="home-header relative z-20 px-6 py-4">
       <nav class="mx-auto flex max-w-6xl items-center justify-between">
-        <!-- Logo -->
-        <div class="flex items-center">
-          <div class="h-10 w-10 overflow-hidden rounded-xl shadow-md">
+        <!-- Logo + Brand -->
+        <div class="flex items-center gap-3">
+          <div class="logo-ring h-9 w-9 overflow-hidden rounded-lg">
             <img :src="siteLogo || '/logo.png'" alt="Logo" class="h-full w-full object-contain" />
           </div>
+          <span class="hidden font-mono text-sm font-semibold uppercase tracking-widest text-white/70 sm:block">
+            {{ siteName }}
+          </span>
         </div>
 
-        <!-- Nav Actions -->
-        <div class="flex items-center gap-3">
-          <!-- Language Switcher -->
+        <!-- Actions -->
+        <div class="flex items-center gap-2">
           <LocaleSwitcher />
 
-          <!-- Doc Link -->
           <a
             v-if="docUrl"
             :href="docUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-dark-400 dark:hover:bg-dark-800 dark:hover:text-white"
+            class="nav-btn"
             :title="t('home.viewDocs')"
           >
-            <Icon name="book" size="md" />
+            <Icon name="book" size="sm" class="mr-1" />
+            <span class="hidden sm:inline">{{ t('home.docs') }}</span>
           </a>
 
-          <!-- Theme Toggle -->
-          <button
-            @click="toggleTheme"
-            class="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-dark-400 dark:hover:bg-dark-800 dark:hover:text-white"
-            :title="isDark ? t('home.switchToLight') : t('home.switchToDark')"
-          >
-            <Icon v-if="isDark" name="sun" size="md" />
-            <Icon v-else name="moon" size="md" />
+          <button @click="toggleTheme" class="nav-btn icon-only" :title="isDark ? t('home.switchToLight') : t('home.switchToDark')">
+            <Icon v-if="isDark" name="sun" size="sm" />
+            <Icon v-else name="moon" size="sm" />
           </button>
 
-          <!-- Login / Dashboard Button -->
           <router-link
             v-if="isAuthenticated"
             :to="dashboardPath"
-            class="inline-flex items-center gap-1.5 rounded-full bg-gray-900 py-1 pl-1 pr-2.5 transition-colors hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700"
+            class="cta-nav-btn"
           >
-            <span
-              class="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-primary-400 to-primary-600 text-[10px] font-semibold text-white"
-            >
-              {{ userInitial }}
-            </span>
-            <span class="text-xs font-medium text-white">{{ t('home.dashboard') }}</span>
-            <svg
-              class="h-3 w-3 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-              />
+            <span class="user-dot">{{ userInitial }}</span>
+            {{ t('home.dashboard') }}
+            <svg class="h-3 w-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
             </svg>
           </router-link>
-          <router-link
-            v-else
-            to="/login"
-            class="inline-flex items-center rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700"
-          >
+          <router-link v-else to="/login" class="cta-nav-btn">
             {{ t('home.login') }}
           </router-link>
         </div>
       </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="relative z-10 flex-1 px-6 py-16">
-      <div class="mx-auto max-w-6xl">
-        <!-- Hero Section - Left/Right Layout -->
-        <div class="mb-12 flex flex-col items-center justify-between gap-12 lg:flex-row lg:gap-16">
-          <!-- Left: Text Content -->
+    <!-- ══════════════════════════════════════════
+         MAIN
+    ══════════════════════════════════════════ -->
+    <main class="relative z-10 flex-1 px-6">
+
+      <!-- ── HERO ────────────────────────────── -->
+      <section class="mx-auto max-w-6xl py-20 lg:py-28">
+        <div class="flex flex-col items-center gap-14 lg:flex-row lg:gap-20">
+
+          <!-- Text side -->
           <div class="flex-1 text-center lg:text-left">
-            <h1
-              class="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"
-            >
-              {{ siteName }}
+            <!-- Badge -->
+            <div class="mb-7 inline-flex items-center gap-2.5 rounded-full border border-teal-500/25 bg-teal-500/8 px-4 py-1.5 font-mono text-xs font-medium text-teal-400">
+              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-400 shadow-[0_0_6px_#14b8a6]"></span>
+              AI API GATEWAY · ENTERPRISE GRADE
+            </div>
+
+            <!-- Headline -->
+            <h1 class="mb-5 font-black leading-[1.08] tracking-tight">
+              <span class="gradient-text block whitespace-nowrap text-[clamp(1.6rem,4.5vw,3.75rem)]">{{ t('home.heroSubtitle') }}</span>
             </h1>
-            <p class="mb-8 text-lg text-gray-600 dark:text-dark-300 md:text-xl">
-              {{ siteSubtitle }}
+
+            <!-- Mono accent line -->
+            <p class="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-teal-600/60">
+              // {{ siteName }} · intelligent traffic layer
             </p>
 
-            <!-- CTA Button -->
-            <div>
+            <p class="mb-10 max-w-lg text-base leading-relaxed text-slate-400 lg:text-lg">
+              {{ t('home.heroDescription') }}
+            </p>
+
+            <!-- CTA buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
               <router-link
                 :to="isAuthenticated ? dashboardPath : '/login'"
-                class="btn btn-primary px-8 py-3 text-base shadow-lg shadow-primary-500/30"
+                class="cta-primary inline-flex items-center gap-2 rounded-lg px-7 py-3 text-sm font-semibold text-white"
               >
                 {{ isAuthenticated ? t('home.goToDashboard') : t('home.getStarted') }}
-                <Icon name="arrowRight" size="md" class="ml-2" :stroke-width="2" />
+                <Icon name="arrowRight" size="sm" :stroke-width="2.5" />
               </router-link>
+              <a
+                v-if="docUrl"
+                :href="docUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 rounded-lg border border-white/10 px-7 py-3 text-sm font-medium text-slate-300 transition-all hover:border-teal-500/30 hover:text-teal-300"
+              >
+                <Icon name="book" size="sm" />
+                {{ t('home.viewDocs') }}
+              </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-12 flex flex-wrap items-center justify-center gap-8 lg:justify-start">
+              <div v-for="s in stats" :key="s.label" class="stat-item">
+                <span class="stat-value">{{ s.value }}</span>
+                <span class="stat-label">{{ s.label }}</span>
+              </div>
             </div>
           </div>
 
-          <!-- Right: Terminal Animation -->
+          <!-- Terminal side -->
           <div class="flex flex-1 justify-center lg:justify-end">
-            <div class="terminal-container">
+            <div class="terminal-wrap">
+              <div class="terminal-glow"></div>
               <div class="terminal-window">
-                <!-- Window header -->
+
+                <!-- Header bar -->
                 <div class="terminal-header">
-                  <div class="terminal-buttons">
-                    <span class="btn-close"></span>
-                    <span class="btn-minimize"></span>
-                    <span class="btn-maximize"></span>
+                  <div class="terminal-dots">
+                    <span class="dot-red"></span>
+                    <span class="dot-yellow"></span>
+                    <span class="dot-green"></span>
                   </div>
-                  <span class="terminal-title">terminal</span>
+                  <span class="terminal-title">trafficapi · gateway</span>
+                  <span class="terminal-live">
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-400 inline-block shadow-[0_0_5px_#14b8a6]"></span>
+                    LIVE
+                  </span>
                 </div>
-                <!-- Terminal content -->
+
+                <!-- Code body -->
                 <div class="terminal-body">
-                  <div class="code-line line-1">
-                    <span class="code-prompt">$</span>
-                    <span class="code-cmd">curl</span>
-                    <span class="code-flag">-X POST</span>
-                    <span class="code-url">/v1/messages</span>
+                  <div class="t-line line-1">
+                    <span class="t-prompt">→</span>
+                    <span class="t-method">POST</span>
+                    <span class="t-path">/v1/messages</span>
+                    <span class="t-dim ml-auto">claude-3-5-sonnet</span>
                   </div>
-                  <div class="code-line line-2">
-                    <span class="code-comment"># Routing to upstream...</span>
+                  <div class="t-line line-2">
+                    <span class="t-comment">&nbsp;&nbsp;⠿ routing to pool · 3 accounts available</span>
                   </div>
-                  <div class="code-line line-3">
-                    <span class="code-success">200 OK</span>
-                    <span class="code-response">{ "content": "Hello!" }</span>
+                  <div class="t-line line-3">
+                    <span class="t-ok">✓ 200</span>
+                    <span class="t-ms">38ms</span>
+                    <span class="t-dim">· account[1] selected</span>
                   </div>
-                  <div class="code-line line-4">
-                    <span class="code-prompt">$</span>
-                    <span class="cursor"></span>
+
+                  <div class="t-sep sep-1"></div>
+
+                  <div class="t-line line-4">
+                    <span class="t-prompt">→</span>
+                    <span class="t-method">POST</span>
+                    <span class="t-path">/v1/chat/completions</span>
+                    <span class="t-dim ml-auto">gpt-4o</span>
+                  </div>
+                  <div class="t-line line-5">
+                    <span class="t-comment">&nbsp;&nbsp;⠿ load balancing · 2 upstream accounts</span>
+                  </div>
+                  <div class="t-line line-6">
+                    <span class="t-ok">✓ 200</span>
+                    <span class="t-ms">57ms</span>
+                    <span class="t-dim">· account[3] selected</span>
+                  </div>
+
+                  <div class="t-sep sep-2"></div>
+
+                  <div class="t-line line-7">
+                    <span class="t-stat">📊 analytics</span>
+                    <span class="t-dim">&nbsp;req: 1.4k/min · p99: 68ms · err: 0%</span>
+                  </div>
+                  <div class="t-line line-8">
+                    <span class="t-prompt">_</span>
+                    <span class="t-cursor"></span>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Feature Tags - Centered -->
-        <div class="mb-12 flex flex-wrap items-center justify-center gap-4 md:gap-6">
-          <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200/50 bg-white/80 px-5 py-2.5 shadow-sm backdrop-blur-sm dark:border-dark-700/50 dark:bg-dark-800/80"
-          >
-            <Icon name="swap" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{
-              t('home.tags.subscriptionToApi')
-            }}</span>
-          </div>
-          <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200/50 bg-white/80 px-5 py-2.5 shadow-sm backdrop-blur-sm dark:border-dark-700/50 dark:bg-dark-800/80"
-          >
-            <Icon name="shield" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{
-              t('home.tags.stickySession')
-            }}</span>
-          </div>
-          <div
-            class="inline-flex items-center gap-2.5 rounded-full border border-gray-200/50 bg-white/80 px-5 py-2.5 shadow-sm backdrop-blur-sm dark:border-dark-700/50 dark:bg-dark-800/80"
-          >
-            <Icon name="chart" size="sm" class="text-primary-500" />
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{
-              t('home.tags.realtimeBilling')
-            }}</span>
+      <!-- ── TAGS BAR ─────────────────────────── -->
+      <section class="mx-auto max-w-6xl pb-14">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <div v-for="tag in featureTags" :key="tag.text" class="tag-pill">
+            <span class="tag-pip"></span>
+            {{ tag.text }}
           </div>
         </div>
+      </section>
 
-        <!-- Features Grid -->
-        <div class="mb-12 grid gap-6 md:grid-cols-3">
-          <!-- Feature 1: Unified Gateway -->
-          <div
-            class="group rounded-2xl border border-gray-200/50 bg-white/60 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-dark-700/50 dark:bg-dark-800/60"
-          >
-            <div
-              class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-110"
-            >
-              <Icon name="server" size="lg" class="text-white" />
-            </div>
-            <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-              {{ t('home.features.unifiedGateway') }}
-            </h3>
-            <p class="text-sm leading-relaxed text-gray-600 dark:text-dark-400">
-              {{ t('home.features.unifiedGatewayDesc') }}
-            </p>
-          </div>
-
-          <!-- Feature 2: Account Pool -->
-          <div
-            class="group rounded-2xl border border-gray-200/50 bg-white/60 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-dark-700/50 dark:bg-dark-800/60"
-          >
-            <div
-              class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg shadow-primary-500/30 transition-transform group-hover:scale-110"
-            >
-              <svg
-                class="h-6 w-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="1.5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                />
-              </svg>
-            </div>
-            <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-              {{ t('home.features.multiAccount') }}
-            </h3>
-            <p class="text-sm leading-relaxed text-gray-600 dark:text-dark-400">
-              {{ t('home.features.multiAccountDesc') }}
-            </p>
-          </div>
-
-          <!-- Feature 3: Billing & Quota -->
-          <div
-            class="group rounded-2xl border border-gray-200/50 bg-white/60 p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-dark-700/50 dark:bg-dark-800/60"
-          >
-            <div
-              class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-110"
-            >
-              <svg
-                class="h-6 w-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="1.5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
-                />
-              </svg>
-            </div>
-            <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-              {{ t('home.features.balanceQuota') }}
-            </h3>
-            <p class="text-sm leading-relaxed text-gray-600 dark:text-dark-400">
-              {{ t('home.features.balanceQuotaDesc') }}
-            </p>
-          </div>
-        </div>
-
-        <!-- Supported Providers -->
-        <div class="mb-8 text-center">
-          <h2 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white">
-            {{ t('home.providers.title') }}
+      <!-- ── FEATURES ─────────────────────────── -->
+      <section class="mx-auto max-w-6xl pb-16">
+        <div class="mb-10 text-center">
+          <h2 class="mb-2 text-2xl font-bold text-white md:text-3xl">
+            <span class="gradient-text">{{ t('home.solutions.title') }}</span>
           </h2>
-          <p class="text-sm text-gray-600 dark:text-dark-400">
-            {{ t('home.providers.description') }}
+          <p class="font-mono text-xs uppercase tracking-widest text-slate-600">
+            // {{ t('home.solutions.subtitle') }}
           </p>
         </div>
 
-        <div class="mb-16 flex flex-wrap items-center justify-center gap-4">
-          <!-- Claude - Supported -->
+        <div class="grid gap-4 md:grid-cols-3">
           <div
-            class="flex items-center gap-2 rounded-xl border border-primary-200 bg-white/60 px-5 py-3 ring-1 ring-primary-500/20 backdrop-blur-sm dark:border-primary-800 dark:bg-dark-800/60"
+            v-for="feat in features"
+            :key="feat.key"
+            class="feat-card group"
           >
+            <div class="feat-accent" :style="{ background: feat.color }"></div>
+            <div class="feat-corner-tr"></div>
+            <div class="feat-corner-bl"></div>
+
             <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-400 to-orange-500"
+              class="feat-icon mb-5"
+              :style="{ background: feat.iconBg, boxShadow: `0 4px 20px ${feat.glow}` }"
             >
-              <span class="text-xs font-bold text-white">C</span>
+              <component :is="feat.iconComponent" />
             </div>
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{ t('home.providers.claude') }}</span>
-            <span
-              class="rounded bg-primary-100 px-1.5 py-0.5 text-[10px] font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
-              >{{ t('home.providers.supported') }}</span
-            >
-          </div>
-          <!-- GPT - Supported -->
-          <div
-            class="flex items-center gap-2 rounded-xl border border-primary-200 bg-white/60 px-5 py-3 ring-1 ring-primary-500/20 backdrop-blur-sm dark:border-primary-800 dark:bg-dark-800/60"
-          >
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600"
-            >
-              <span class="text-xs font-bold text-white">G</span>
-            </div>
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">GPT</span>
-            <span
-              class="rounded bg-primary-100 px-1.5 py-0.5 text-[10px] font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
-              >{{ t('home.providers.supported') }}</span
-            >
-          </div>
-          <!-- Gemini - Supported -->
-          <div
-            class="flex items-center gap-2 rounded-xl border border-primary-200 bg-white/60 px-5 py-3 ring-1 ring-primary-500/20 backdrop-blur-sm dark:border-primary-800 dark:bg-dark-800/60"
-          >
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600"
-            >
-              <span class="text-xs font-bold text-white">G</span>
-            </div>
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{ t('home.providers.gemini') }}</span>
-            <span
-              class="rounded bg-primary-100 px-1.5 py-0.5 text-[10px] font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
-              >{{ t('home.providers.supported') }}</span
-            >
-          </div>
-          <!-- Antigravity - Supported -->
-          <div
-            class="flex items-center gap-2 rounded-xl border border-primary-200 bg-white/60 px-5 py-3 ring-1 ring-primary-500/20 backdrop-blur-sm dark:border-primary-800 dark:bg-dark-800/60"
-          >
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-rose-500 to-pink-600"
-            >
-              <span class="text-xs font-bold text-white">A</span>
-            </div>
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{ t('home.providers.antigravity') }}</span>
-            <span
-              class="rounded bg-primary-100 px-1.5 py-0.5 text-[10px] font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400"
-              >{{ t('home.providers.supported') }}</span
-            >
-          </div>
-          <!-- More - Coming Soon -->
-          <div
-            class="flex items-center gap-2 rounded-xl border border-gray-200/50 bg-white/40 px-5 py-3 opacity-60 backdrop-blur-sm dark:border-dark-700/50 dark:bg-dark-800/40"
-          >
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-gray-500 to-gray-600"
-            >
-              <span class="text-xs font-bold text-white">+</span>
-            </div>
-            <span class="text-sm font-medium text-gray-700 dark:text-dark-200">{{ t('home.providers.more') }}</span>
-            <span
-              class="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500 dark:bg-dark-700 dark:text-dark-400"
-              >{{ t('home.providers.soon') }}</span
-            >
+
+            <h3 class="mb-2 font-semibold text-white">{{ t(`home.features.${feat.key}`) }}</h3>
+            <p class="text-sm leading-relaxed text-slate-500 transition-colors group-hover:text-slate-400">
+              {{ t(`home.features.${feat.key}Desc`) }}
+            </p>
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- ── PROVIDERS ────────────────────────── -->
+      <section class="mx-auto max-w-6xl pb-20">
+        <div class="mb-8 text-center">
+          <h2 class="mb-2 text-xl font-bold text-white">{{ t('home.providers.title') }}</h2>
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-slate-600">
+            // {{ t('home.providers.description') }}
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <div
+            v-for="p in providerList"
+            :key="p.name"
+            class="provider-card"
+            :class="{ 'provider-active': p.live, 'provider-inactive': !p.live }"
+          >
+            <span
+              class="provider-status-dot"
+              :class="p.live ? 'dot-live' : 'dot-offline'"
+            ></span>
+            <div class="provider-icon-badge" :style="{ background: p.gradient }">
+              <span class="text-[11px] font-bold text-white">{{ p.letter }}</span>
+            </div>
+            <span class="text-sm font-medium text-slate-300">{{ p.name }}</span>
+            <span class="provider-tag" :class="p.live ? 'tag-live' : 'tag-soon'">
+              {{ p.live ? t('home.providers.supported') : t('home.providers.soon') }}
+            </span>
+          </div>
+        </div>
+      </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="relative z-10 border-t border-gray-200/50 px-6 py-8 dark:border-dark-800/50">
-      <div
-        class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center sm:flex-row sm:text-left"
-      >
-        <p class="text-sm text-gray-500 dark:text-dark-400">
-          &copy; {{ currentYear }} {{ siteName }}. {{ t('home.footer.allRightsReserved') }}
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
+    <footer class="home-footer relative z-10 px-6 py-6">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+        <p class="font-mono text-xs text-slate-700">
+          &copy; {{ currentYear }} {{ siteName }} · {{ t('home.footer.allRightsReserved') }}
         </p>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-5">
           <a
             v-if="docUrl"
             :href="docUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-dark-400 dark:hover:text-white"
+            class="font-mono text-xs text-slate-700 transition-colors hover:text-teal-400"
           >
-            {{ t('home.docs') }}
+            /docs
           </a>
           <a
             :href="githubUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-dark-400 dark:hover:text-white"
+            class="font-mono text-xs text-slate-700 transition-colors hover:text-teal-400"
           >
-            GitHub
+            /github
           </a>
         </div>
       </div>
     </footer>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, defineComponent, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore, useAppStore } from '@/stores'
 import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
 import Icon from '@/components/icons/Icon.vue'
 
 const { t } = useI18n()
-
 const authStore = useAuthStore()
 const appStore = useAppStore()
 
-// Site settings - directly from appStore (already initialized from injected config)
-const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || 'Sub2API')
+// Site settings
+const siteName = computed(() => appStore.cachedPublicSettings?.site_name || appStore.siteName || 'TrafficAPI')
 const siteLogo = computed(() => appStore.cachedPublicSettings?.site_logo || appStore.siteLogo || '')
-const siteSubtitle = computed(() => appStore.cachedPublicSettings?.site_subtitle || 'AI API Gateway Platform')
 const docUrl = computed(() => appStore.cachedPublicSettings?.doc_url || appStore.docUrl || '')
 const homeContent = computed(() => appStore.cachedPublicSettings?.home_content || '')
 
-// Check if homeContent is a URL (for iframe display)
 const isHomeContentUrl = computed(() => {
   const content = homeContent.value.trim()
   return content.startsWith('http://') || content.startsWith('https://')
@@ -432,36 +352,96 @@ const isHomeContentUrl = computed(() => {
 // Theme
 const isDark = ref(document.documentElement.classList.contains('dark'))
 
-// GitHub URL
+// GitHub
 const githubUrl = 'https://github.com/Wei-Shaw/sub2api'
 
-// Auth state
+// Auth
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isAdmin = computed(() => authStore.isAdmin)
 const dashboardPath = computed(() => isAdmin.value ? '/admin/dashboard' : '/dashboard')
 const userInitial = computed(() => {
   const user = authStore.user
-  if (!user || !user.email) return ''
+  if (!user?.email) return ''
   return user.email.charAt(0).toUpperCase()
 })
 
-// Current year for footer
 const currentYear = computed(() => new Date().getFullYear())
 
-// Toggle theme
+// Stats
+const stats = [
+  { value: '3+', label: 'AI Providers' },
+  { value: '99.9%', label: 'SLA Uptime' },
+  { value: '1', label: 'API Key' },
+]
+
+// Feature tags
+const featureTags = computed(() => [
+  { text: t('home.tags.subscriptionToApi') },
+  { text: t('home.tags.stickySession') },
+  { text: t('home.tags.realtimeBilling') },
+])
+
+// SVG icon components (inline)
+const IconServer = defineComponent({
+  render: () => h('svg', { class: 'h-5 w-5 text-white', fill: 'none', viewBox: '0 0 24 24', stroke: 'currentColor', 'stroke-width': '1.5' }, [
+    h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', d: 'M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z' })
+  ])
+})
+const IconRoute = defineComponent({
+  render: () => h('svg', { class: 'h-5 w-5 text-white', fill: 'none', viewBox: '0 0 24 24', stroke: 'currentColor', 'stroke-width': '1.5' }, [
+    h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', d: 'M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5' })
+  ])
+})
+const IconChart = defineComponent({
+  render: () => h('svg', { class: 'h-5 w-5 text-white', fill: 'none', viewBox: '0 0 24 24', stroke: 'currentColor', 'stroke-width': '1.5' }, [
+    h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', d: 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z' })
+  ])
+})
+
+// Features config — all icons use inline components, no string name needed
+const features = [
+  {
+    key: 'unifiedGateway',
+    iconComponent: IconServer,
+    iconBg: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+    glow: 'rgba(59,130,246,0.3)',
+    color: '#3b82f6',
+  },
+  {
+    key: 'multiAccount',
+    iconComponent: IconRoute,
+    iconBg: 'linear-gradient(135deg, #14b8a6, #0d9488)',
+    glow: 'rgba(20,184,166,0.3)',
+    color: '#14b8a6',
+  },
+  {
+    key: 'balanceQuota',
+    iconComponent: IconChart,
+    iconBg: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+    glow: 'rgba(168,85,247,0.3)',
+    color: '#a855f7',
+  },
+]
+
+// Providers
+const providerList = computed(() => [
+  { name: t('home.providers.claude'),       letter: 'C', gradient: 'linear-gradient(135deg,#f97316,#ea580c)', live: true },
+  { name: 'GPT',                            letter: 'G', gradient: 'linear-gradient(135deg,#22c55e,#16a34a)', live: true },
+  { name: t('home.providers.gemini'),       letter: 'G', gradient: 'linear-gradient(135deg,#3b82f6,#2563eb)', live: true },
+  { name: t('home.providers.antigravity'),  letter: 'A', gradient: 'linear-gradient(135deg,#f43f5e,#db2777)', live: true },
+  { name: t('home.providers.more'),         letter: '+', gradient: 'linear-gradient(135deg,#475569,#334155)', live: false },
+])
+
+// Theme toggle
 function toggleTheme() {
   isDark.value = !isDark.value
   document.documentElement.classList.toggle('dark', isDark.value)
   localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
 }
 
-// Initialize theme
 function initTheme() {
   const savedTheme = localStorage.getItem('theme')
-  if (
-    savedTheme === 'dark' ||
-    (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
+  if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     isDark.value = true
     document.documentElement.classList.add('dark')
   }
@@ -469,11 +449,7 @@ function initTheme() {
 
 onMounted(() => {
   initTheme()
-
-  // Check auth state
   authStore.checkAuth()
-
-  // Ensure public settings are loaded (will use cache if already loaded from injected config)
   if (!appStore.publicSettingsLoaded) {
     appStore.fetchPublicSettings()
   }
@@ -481,164 +457,497 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Terminal Container */
-.terminal-container {
+/* ══════════════════════════════════════════════
+   ROOT — always dark for this landing page
+══════════════════════════════════════════════ */
+.home-root {
+  background: #182a40;
+  color: white;
+}
+
+/* ══════════════════════════════════════════════
+   BACKGROUND LAYERS
+══════════════════════════════════════════════ */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+.orb-tr {
+  top: -15%;
+  right: -15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(20,184,166,0.18) 0%, transparent 70%);
+}
+.orb-bl {
+  bottom: -15%;
+  left: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(6,182,212,0.13) 0%, transparent 70%);
+}
+.orb-center {
+  top: 30%;
+  left: 40%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(20,184,166,0.08) 0%, transparent 70%);
+}
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(20,184,166,0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20,184,166,0.09) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(20,184,166,0.5) 30%, rgba(20,184,166,0.8) 50%, rgba(20,184,166,0.5) 70%, transparent 100%);
+  animation: scan 10s linear infinite;
+  box-shadow: 0 0 8px rgba(20,184,166,0.4);
+}
+@keyframes scan {
+  0%   { top: 0%;   opacity: 0;   }
+  3%   { opacity: 1; }
+  97%  { opacity: 0.4; }
+  100% { top: 100%; opacity: 0;   }
+}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+.home-header {
+  border-bottom: 1px solid rgba(20,184,166,0.12);
+  backdrop-filter: blur(12px);
+  background: rgba(24,42,64,0.8);
+}
+.logo-ring {
+  box-shadow: 0 0 0 1px rgba(20,184,166,0.25), 0 0 16px rgba(20,184,166,0.15);
+}
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+.nav-btn:hover {
+  background: rgba(20,184,166,0.08);
+  color: #5eead4;
+}
+.nav-btn.icon-only {
+  padding: 6px 8px;
+}
+.cta-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(20,184,166,0.3);
+  background: rgba(20,184,166,0.08);
+  font-size: 12px;
+  font-weight: 500;
+  color: #5eead4;
+  transition: all 0.2s;
+}
+.cta-nav-btn:hover {
+  border-color: rgba(20,184,166,0.6);
+  background: rgba(20,184,166,0.15);
+  box-shadow: 0 0 14px rgba(20,184,166,0.2);
+}
+.user-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+  font-size: 9px;
+  font-weight: 700;
+  color: white;
+}
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #7dd3c8 40%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cta-primary {
+  background: linear-gradient(135deg, #0f766e, #14b8a6, #0d9488);
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+  box-shadow: 0 0 0 1px rgba(20,184,166,0.4), 0 4px 20px rgba(20,184,166,0.25);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.cta-primary:hover {
+  box-shadow: 0 0 0 1px rgba(20,184,166,0.7), 0 6px 28px rgba(20,184,166,0.4);
+  transform: translateY(-2px);
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+/* Stats */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+}
+.stat-item + .stat-item::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 28px;
+  background: rgba(20,184,166,0.2);
+}
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-family: ui-monospace, monospace;
+  color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 10px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ══════════════════════════════════════════════
+   TERMINAL
+══════════════════════════════════════════════ */
+.terminal-wrap {
   position: relative;
   display: inline-block;
 }
-
-/* Terminal Window */
+.terminal-glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(ellipse at center, rgba(20,184,166,0.1) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
 .terminal-window {
-  width: 420px;
-  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-  border-radius: 14px;
+  position: relative;
+  z-index: 1;
+  width: 460px;
+  max-width: 100%;
+  background: linear-gradient(160deg, #1a2e48 0%, #162540 100%);
+  border-radius: 13px;
+  border: 1px solid rgba(20,184,166,0.18);
   box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 0 0 1px rgba(255,255,255,0.025),
+    0 28px 64px rgba(0,0,0,0.7),
+    0 0 50px rgba(20,184,166,0.07);
   overflow: hidden;
-  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg);
-  transition: transform 0.3s ease;
+  transform: perspective(900px) rotateX(1.5deg) rotateY(-2.5deg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
 .terminal-window:hover {
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-4px);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(-8px);
+  box-shadow:
+    0 0 0 1px rgba(20,184,166,0.28),
+    0 36px 80px rgba(0,0,0,0.75),
+    0 0 70px rgba(20,184,166,0.12);
 }
-
-/* Terminal Header */
 .terminal-header {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
-  background: rgba(30, 41, 59, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 10px;
+  padding: 11px 16px;
+  background: rgba(22,37,60,0.9);
+  border-bottom: 1px solid rgba(20,184,166,0.12);
 }
-
-.terminal-buttons {
+.terminal-dots {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
-
-.terminal-buttons span {
-  width: 12px;
-  height: 12px;
+.terminal-dots span {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
 }
-
-.btn-close {
-  background: #ef4444;
-}
-.btn-minimize {
-  background: #eab308;
-}
-.btn-maximize {
-  background: #22c55e;
-}
-
+.dot-red    { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green  { background: #22c55e; }
 .terminal-title {
   flex: 1;
   text-align: center;
-  font-size: 12px;
+  font-size: 11px;
   font-family: ui-monospace, monospace;
-  color: #64748b;
-  margin-right: 52px;
+  color: #334155;
 }
-
-/* Terminal Body */
-.terminal-body {
-  padding: 20px 24px;
-  font-family: ui-monospace, 'Fira Code', monospace;
-  font-size: 14px;
-  line-height: 2;
-}
-
-.code-line {
+.terminal-live {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: line-appear 0.5s ease forwards;
-}
-
-.line-1 {
-  animation-delay: 0.3s;
-}
-.line-2 {
-  animation-delay: 1s;
-}
-.line-3 {
-  animation-delay: 1.8s;
-}
-.line-4 {
-  animation-delay: 2.5s;
-}
-
-@keyframes line-appear {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.code-prompt {
-  color: #22c55e;
-  font-weight: bold;
-}
-.code-cmd {
-  color: #38bdf8;
-}
-.code-flag {
-  color: #a78bfa;
-}
-.code-url {
+  gap: 5px;
+  font-size: 10px;
+  font-family: ui-monospace, monospace;
   color: #14b8a6;
+  letter-spacing: 0.06em;
 }
-.code-comment {
-  color: #64748b;
-  font-style: italic;
-}
-.code-success {
-  color: #22c55e;
-  background: rgba(34, 197, 94, 0.15);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-.code-response {
-  color: #fbbf24;
+.terminal-body {
+  padding: 18px 22px 22px;
+  font-family: ui-monospace, 'Fira Code', monospace;
+  font-size: 12.5px;
+  line-height: 1.85;
 }
 
-/* Blinking Cursor */
-.cursor {
+/* Terminal lines */
+.t-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  opacity: 0;
+  animation: t-appear 0.35s ease forwards;
+}
+.t-sep {
+  height: 1px;
+  background: rgba(20,184,166,0.07);
+  margin: 5px 0;
+  opacity: 0;
+  animation: t-appear 0.2s ease forwards;
+}
+.line-1 { animation-delay: 0.2s;  }
+.line-2 { animation-delay: 0.7s;  }
+.line-3 { animation-delay: 1.2s;  }
+.sep-1  { animation-delay: 1.75s; }
+.line-4 { animation-delay: 2.0s;  }
+.line-5 { animation-delay: 2.5s;  }
+.line-6 { animation-delay: 3.0s;  }
+.sep-2  { animation-delay: 3.5s;  }
+.line-7 { animation-delay: 3.8s;  }
+.line-8 { animation-delay: 4.4s;  }
+@keyframes t-appear {
+  from { opacity: 0; transform: translateX(-5px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+.t-prompt { color: #14b8a6; font-weight: 700; }
+.t-method { color: #38bdf8; font-weight: 600; }
+.t-path   { color: #bfdbfe; }
+.t-comment{ color: #1e3a4a; font-style: italic; }
+.t-ok {
+  color: #4ade80;
+  background: rgba(74,222,128,0.07);
+  border: 1px solid rgba(74,222,128,0.15);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 11px;
+}
+.t-ms   { color: #fcd34d; font-size: 11px; }
+.t-dim  { color: #1e3a4a; font-size: 11px; }
+.t-stat { color: #a78bfa; }
+
+/* Cursor */
+.t-cursor {
   display: inline-block;
-  width: 8px;
-  height: 16px;
-  background: #22c55e;
-  animation: blink 1s step-end infinite;
+  width: 7px;
+  height: 13px;
+  background: #14b8a6;
+  box-shadow: 0 0 8px rgba(20,184,166,0.7);
+  animation: blink 1.1s step-end infinite;
+  border-radius: 1px;
 }
-
 @keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
+  0%,44%  { opacity: 1; }
+  50%,94% { opacity: 0; }
+  100%    { opacity: 1; }
 }
 
-/* Dark mode adjustments */
-:deep(.dark) .terminal-window {
-  box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(20, 184, 166, 0.2),
-    0 0 40px rgba(20, 184, 166, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+/* ══════════════════════════════════════════════
+   FEATURE TAGS
+══════════════════════════════════════════════ */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(20,184,166,0.14);
+  background: rgba(20,184,166,0.04);
+  border-radius: 9999px;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  transition: all 0.2s;
+  cursor: default;
+}
+.tag-pill:hover {
+  border-color: rgba(20,184,166,0.3);
+  background: rgba(20,184,166,0.08);
+  color: #94a3b8;
+}
+.tag-pip {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #14b8a6;
+  box-shadow: 0 0 7px rgba(20,184,166,0.9);
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════
+   FEATURE CARDS
+══════════════════════════════════════════════ */
+.feat-card {
+  position: relative;
+  padding: 26px;
+  background: rgba(26,46,72,0.65);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 13px;
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.feat-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(26,46,72,0.88);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+/* left accent bar */
+.feat-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  opacity: 0.55;
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+.feat-card:hover .feat-accent {
+  opacity: 1;
+  box-shadow: 0 0 12px currentColor;
+}
+/* corner brackets */
+.feat-corner-tr,
+.feat-corner-bl {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feat-corner-tr {
+  top: 10px;
+  right: 10px;
+  border-top: 1px solid rgba(20,184,166,0.45);
+  border-right: 1px solid rgba(20,184,166,0.45);
+}
+.feat-corner-bl {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 1px solid rgba(20,184,166,0.45);
+  border-right: 1px solid rgba(20,184,166,0.45);
+}
+.feat-card:hover .feat-corner-tr,
+.feat-card:hover .feat-corner-bl {
+  opacity: 1;
+}
+.feat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.feat-card:hover .feat-icon {
+  transform: scale(1.08);
+}
+
+/* ══════════════════════════════════════════════
+   PROVIDERS
+══════════════════════════════════════════════ */
+.provider-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(26,46,72,0.55);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s;
+}
+.provider-active:hover {
+  border-color: rgba(20,184,166,0.22);
+  background: rgba(20,184,166,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+.provider-inactive {
+  opacity: 0.38;
+}
+.provider-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-live {
+  background: #34d399;
+  box-shadow: 0 0 7px rgba(52,211,153,0.8);
+}
+.dot-offline {
+  background: #334155;
+}
+.provider-icon-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.provider-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tag-live {
+  background: rgba(20,184,166,0.1);
+  color: #2dd4bf;
+  border: 1px solid rgba(20,184,166,0.2);
+}
+.tag-soon {
+  background: rgba(71,85,105,0.2);
+  color: #475569;
+  border: 1px solid rgba(71,85,105,0.25);
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.home-footer {
+  border-top: 1px solid rgba(20,184,166,0.1);
+  background: rgba(24,42,64,0.8);
 }
 </style>

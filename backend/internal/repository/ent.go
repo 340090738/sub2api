@@ -11,8 +11,6 @@ import (
 	"github.com/Wei-Shaw/sub2api/ent"
 	"github.com/Wei-Shaw/sub2api/internal/config"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/timezone"
-	"github.com/Wei-Shaw/sub2api/migrations"
-
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	_ "github.com/lib/pq" // PostgreSQL 驱动，通过副作用导入注册驱动
@@ -57,17 +55,19 @@ func InitEnt(cfg *config.Config) (*ent.Client, *sql.DB, error) {
 	// 确保数据库 schema 已准备就绪。
 	// SQL 迁移文件是 schema 的权威来源（source of truth）。
 	// 这种方式比 Ent 的自动迁移更可控，支持复杂的迁移场景。
-	migrationCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
-	defer cancel()
-	if err := applyMigrationsFS(migrationCtx, drv.DB(), migrations.FS); err != nil {
-		_ = drv.Close() // 迁移失败时关闭驱动，避免资源泄露
-		return nil, nil, err
-	}
+	// migrationCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+	// defer cancel()
+	// if err := applyMigrationsFS(migrationCtx, drv.DB(), migrations.FS); err != nil {
+	// 	_ = drv.Close() // 迁移失败时关闭驱动，避免资源泄露
+	// 	return nil, nil, err
+	// }
 
 	// 创建 Ent 客户端，绑定到已配置的数据库驱动。
 	client := ent.NewClient(ent.Driver(drv))
 
 	// 启动阶段：从配置或数据库中确保系统密钥可用。
+	migrationCtx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+	defer cancel()
 	if err := ensureBootstrapSecrets(migrationCtx, client, cfg); err != nil {
 		_ = client.Close()
 		return nil, nil, err

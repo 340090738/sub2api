@@ -10,89 +10,89 @@ export default {
     login: 'Login',
     getStarted: 'Get Started',
     goToDashboard: 'Go to Dashboard',
-    // User-focused value proposition
-    heroSubtitle: 'One Key, All AI Models',
-    heroDescription: 'No need to manage multiple subscriptions. Access Claude, GPT, Gemini and more with a single API key',
+    // TrafficAPI value proposition
+    heroSubtitle: 'Route Smarter. Scale Faster.',
+    heroDescription: 'TrafficAPI is the intelligent AI API gateway that routes your requests across Claude, GPT, Gemini and more — with automatic load balancing, zero downtime, and real-time traffic analytics.',
     tags: {
-      subscriptionToApi: 'Subscription to API',
-      stickySession: 'Session Persistence',
-      realtimeBilling: 'Pay As You Go'
+      subscriptionToApi: 'Intelligent Routing',
+      stickySession: 'Auto Load Balancing',
+      realtimeBilling: 'Real-time Analytics'
     },
     // Pain points section
     painPoints: {
       title: 'Sound Familiar?',
       items: {
         expensive: {
-          title: 'High Subscription Costs',
-          desc: 'Paying for multiple AI subscriptions that add up every month'
+          title: 'Fragmented AI Costs',
+          desc: 'Paying for multiple AI subscriptions that add up every month with no unified control'
         },
         complex: {
-          title: 'Account Chaos',
-          desc: 'Managing scattered accounts and API keys across different platforms'
+          title: 'Multi-Provider Chaos',
+          desc: 'Juggling different SDKs, credentials, and endpoints across Claude, GPT, Gemini and more'
         },
         unstable: {
-          title: 'Service Interruptions',
-          desc: 'Single accounts hitting rate limits and disrupting your workflow'
+          title: 'Rate Limit Downtime',
+          desc: 'A single upstream account hitting limits can bring your entire application offline'
         },
         noControl: {
-          title: 'No Usage Control',
-          desc: "Can't track where your money goes or limit team member usage"
+          title: 'Zero Traffic Visibility',
+          desc: "No insight into request volume, latency, or spend across providers and team members"
         }
       }
     },
     // Solutions section
     solutions: {
-      title: 'We Solve These Problems',
-      subtitle: 'Three simple steps to stress-free AI access'
+      title: 'TrafficAPI Solves This',
+      subtitle: 'One gateway to route, balance, and monitor all your AI traffic'
     },
     features: {
-      unifiedGateway: 'One-Click Access',
-      unifiedGatewayDesc: 'Get a single API key to call all connected AI models. No separate applications needed.',
-      multiAccount: 'Always Reliable',
-      multiAccountDesc: 'Smart routing across multiple upstream accounts with automatic failover. Say goodbye to errors.',
-      balanceQuota: 'Pay What You Use',
-      balanceQuotaDesc: 'Usage-based billing with quota limits. Full visibility into team consumption.'
+      unifiedGateway: 'Unified API Endpoint',
+      unifiedGatewayDesc: 'One endpoint, one key — access every connected AI provider. No SDK changes, no credential juggling, zero migration friction.',
+      multiAccount: 'Smart Load Balancing',
+      multiAccountDesc: 'Traffic is distributed intelligently across multiple upstream accounts. Automatic failover ensures zero downtime even when upstream limits are hit.',
+      balanceQuota: 'Traffic Analytics',
+      balanceQuotaDesc: 'Monitor request volume, response latency, and per-model costs in real time. Set spending quotas per user or team with granular control.'
     },
     // Comparison section
     comparison: {
-      title: 'Why Choose Us?',
+      title: 'Why TrafficAPI?',
       headers: {
-        feature: 'Comparison',
-        official: 'Official Subscriptions',
-        us: 'Our Platform'
+        feature: 'Feature',
+        official: 'Direct Provider',
+        us: 'TrafficAPI'
       },
       items: {
         pricing: {
           feature: 'Pricing',
-          official: 'Fixed monthly fee, pay even if unused',
-          us: 'Pay only for what you use'
+          official: 'Fixed monthly fee per provider',
+          us: 'Pay per request, unified billing'
         },
         models: {
-          feature: 'Model Selection',
+          feature: 'Model Access',
           official: 'Single provider only',
-          us: 'Switch between models freely'
+          us: 'Any model, one endpoint'
         },
         management: {
           feature: 'Account Management',
-          official: 'Manage each service separately',
-          us: 'Unified key, one dashboard'
+          official: 'Each service managed separately',
+          us: 'Unified dashboard, one API key'
         },
         stability: {
-          feature: 'Stability',
-          official: 'Single account rate limits',
+          feature: 'Reliability',
+          official: 'Single account, no failover',
           us: 'Multi-account pool, auto-failover'
         },
         control: {
-          feature: 'Usage Control',
+          feature: 'Traffic Control',
           official: 'Not available',
-          us: 'Quotas & detailed analytics'
+          us: 'Quotas, rate limits & analytics'
         }
       }
     },
     providers: {
-      title: 'Supported AI Models',
-      description: 'One API, Multiple Choices',
-      supported: 'Supported',
+      title: 'Supported AI Providers',
+      description: 'One Gateway, Every Model',
+      supported: 'Live',
       soon: 'Soon',
       claude: 'Claude',
       gemini: 'Gemini',
@@ -101,9 +101,9 @@ export default {
     },
     // CTA section
     cta: {
-      title: 'Ready to Get Started?',
-      description: 'Sign up now and get free trial credits to experience seamless AI access',
-      button: 'Sign Up Free'
+      title: 'Start Routing Your AI Traffic',
+      description: 'Join teams who use TrafficAPI to unify their AI access, eliminate downtime, and gain full visibility into usage.',
+      button: 'Get Started Free'
     },
     footer: {
       allRightsReserved: 'All rights reserved.'
@@ -182,8 +182,8 @@ export default {
 
   // Setup Wizard
   setup: {
-    title: 'Sub2API Setup',
-    description: 'Configure your Sub2API instance',
+    title: 'TrafficAPI Setup',
+    description: 'Configure your TrafficAPI instance',
     database: {
       title: 'Database Configuration',
       description: 'Connect to your PostgreSQL database',
@@ -357,8 +357,8 @@ export default {
 
   // Auth
   auth: {
-    welcomeBack: 'Welcome Back',
-    signInToAccount: 'Sign in to your account to continue',
+    welcomeBack: 'Welcome Back to TrafficAPI',
+    signInToAccount: 'Sign in to manage your AI traffic, keys, and analytics',
     signIn: 'Sign In',
     signingIn: 'Signing in...',
     createAccount: 'Create Account',
@@ -1085,7 +1085,7 @@ export default {
         step1: {
           title: 'Create an R2 Bucket',
           line1: 'Log in to the Cloudflare Dashboard (dash.cloudflare.com), select "R2 Object Storage" from the sidebar',
-          line2: 'Click "Create bucket", enter a name (e.g. sub2api-backups), choose a region',
+          line2: 'Click "Create bucket", enter a name (e.g. trafficapi-backups), choose a region',
           line3: 'Click create to finish'
         },
         step2: {
@@ -1934,7 +1934,7 @@ export default {
         antigravityOauth: 'Antigravity OAuth',
         antigravityApikey: 'Connect via Base URL + API Key',
         soraApiKey: 'API Key / Upstream',
-        soraApiKeyHint: 'Connect to another Sub2API or compatible API',
+        soraApiKeyHint: 'Connect to another TrafficAPI or compatible API',
         soraBaseUrlRequired: 'Sora API Key account requires a Base URL',
         soraBaseUrlInvalidScheme: 'Base URL must start with http:// or https://',
         upstream: 'Upstream',
@@ -2235,7 +2235,7 @@ export default {
       poolMode: 'Pool Mode',
       poolModeHint: 'Enable when upstream is an account pool; errors won\'t mark local account status',
       poolModeInfo:
-        'When enabled, upstream 429/403/401 errors will auto-retry without marking the account as rate-limited or errored. Suitable for upstream pointing to another sub2api instance.',
+        'When enabled, upstream 429/403/401 errors will auto-retry without marking the account as rate-limited or errored. Suitable for upstream pointing to another trafficapi instance.',
       poolModeRetryCount: 'Same-Account Retries',
       poolModeRetryCountHint:
         'Only applies in pool mode. Use 0 to disable in-place retry. Default {default}, maximum {max}.',
@@ -2743,7 +2743,7 @@ export default {
       geminiImageTestMode: 'Mode: Gemini image generation test',
       geminiImagePreview: 'Generated images:',
       geminiImageReceived: 'Received test image #{count}',
-      soraUpstreamBaseUrlHint: 'Upstream Sora service URL (another Sub2API instance or compatible API)',
+      soraUpstreamBaseUrlHint: 'Upstream Sora service URL (another TrafficAPI instance or compatible API)',
       soraTestHint: 'Sora test runs connectivity and capability checks (/backend/me, subscription, Sora2 invite and remaining quota).',
       soraTestTarget: 'Target: Sora account capability',
       soraTestMode: 'Mode: Connectivity + Capability checks',
@@ -4123,7 +4123,7 @@ export default {
         secretKeyConfiguredHint: 'Secret key configured. Leave empty to keep the current value.'      },
       linuxdo: {
         title: 'LinuxDo Connect Login',
-        description: 'Configure LinuxDo Connect OAuth for Sub2API end-user login',
+        description: 'Configure LinuxDo Connect OAuth for TrafficAPI end-user login',
         enable: 'Enable LinuxDo Login',
         enableHint: 'Show LinuxDo login on the login/register pages',
         clientId: 'Client ID',
@@ -4190,7 +4190,7 @@ export default {
         backendModeDescription:
           'Disables user registration, public site, and self-service features. Only admin can log in and manage the platform.',
         siteName: 'Site Name',
-        siteNamePlaceholder: 'Sub2API',
+        siteNamePlaceholder: 'TrafficAPI',
         siteNameHint: 'Displayed in emails and page titles',
         siteSubtitle: 'Site Subtitle',
         siteSubtitlePlaceholder: 'Subscription to API Conversion Platform',
@@ -4290,7 +4290,7 @@ export default {
         fromEmail: 'From Email',
         fromEmailPlaceholder: "noreply{'@'}example.com",
         fromName: 'From Name',
-        fromNamePlaceholder: 'Sub2API',
+        fromNamePlaceholder: 'TrafficAPI',
         useTls: 'Use TLS',
         useTlsHint: 'Enable TLS encryption for SMTP connection'
       },
@@ -4721,14 +4721,14 @@ export default {
     // Admin tour steps
     admin: {
       welcome: {
-        title: '👋 Welcome to Sub2API',
-        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Sub2API is a powerful AI service gateway platform that helps you easily manage and distribute AI services.</p><p style="margin-bottom: 12px;"><b>🎯 Core Features:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>📦 <b>Group Management</b> - Create service tiers (VIP, Free Trial, etc.)</li><li>🔗 <b>Account Pool</b> - Connect multiple upstream AI service accounts</li><li>🔑 <b>Key Distribution</b> - Generate independent API Keys for users</li><li>💰 <b>Billing Control</b> - Flexible rate and quota management</li></ul><p style="color: #10b981; font-weight: 600;">Let\'s complete the initial setup in 3 minutes →</p></div>',
+        title: '👋 Welcome to TrafficAPI',
+        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">TrafficAPI is your intelligent AI traffic gateway — route, balance, and monitor requests across every major AI provider from a single control plane.</p><p style="margin-bottom: 12px;"><b>🎯 Core Capabilities:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>📦 <b>Traffic Groups</b> - Define service tiers with routing policies (VIP, Free Trial, etc.)</li><li>🔗 <b>Account Pool</b> - Connect multiple upstream accounts for load balancing & failover</li><li>🔑 <b>API Key Distribution</b> - Issue independent keys per user with quota controls</li><li>📊 <b>Traffic Analytics</b> - Real-time visibility into requests, latency, and costs</li></ul><p style="color: #10b981; font-weight: 600;">Let\'s complete the initial setup in 3 minutes →</p></div>',
         nextBtn: 'Start Setup 🚀',
         prevBtn: 'Skip'
       },
       groupManage: {
         title: '📦 Step 1: Group Management',
-        description: '<div style="line-height: 1.7;"><p style="margin-bottom: 12px;"><b>What is a Group?</b></p><p style="margin-bottom: 12px;">Groups are the core concept of Sub2API, like a "service package":</p><ul style="margin-left: 20px; margin-bottom: 12px; font-size: 13px;"><li>🎯 Each group can contain multiple upstream accounts</li><li>💰 Each group has independent billing multiplier</li><li>👥 Can be set as public or exclusive</li></ul><p style="margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;"><b>💡 Example:</b> You can create "VIP Premium" (high rate) and "Free Trial" (low rate) groups</p><p style="margin-top: 16px; color: #10b981; font-weight: 600;">👉 Click "Group Management" on the left sidebar</p></div>'
+        description: '<div style="line-height: 1.7;"><p style="margin-bottom: 12px;"><b>What is a Group?</b></p><p style="margin-bottom: 12px;">Groups are the core concept of TrafficAPI, like a "service package":</p><ul style="margin-left: 20px; margin-bottom: 12px; font-size: 13px;"><li>🎯 Each group can contain multiple upstream accounts</li><li>💰 Each group has independent billing multiplier</li><li>👥 Can be set as public or exclusive</li></ul><p style="margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;"><b>💡 Example:</b> You can create "VIP Premium" (high rate) and "Free Trial" (low rate) groups</p><p style="margin-top: 16px; color: #10b981; font-weight: 600;">👉 Click "Group Management" on the left sidebar</p></div>'
       },
       createGroup: {
         title: '➕ Create New Group',
@@ -4821,8 +4821,8 @@ export default {
     // User tour steps
     user: {
       welcome: {
-        title: '👋 Welcome to Sub2API',
-        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Hello! Welcome to the Sub2API AI service platform.</p><p style="margin-bottom: 12px;"><b>🎯 Quick Start:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 Create API Key</li><li>📋 Copy key to your application</li><li>🚀 Start using AI services</li></ul><p style="color: #10b981; font-weight: 600;">Just 1 minute, let\'s get started →</p></div>',
+        title: '👋 Welcome to TrafficAPI',
+        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Hello! Welcome to TrafficAPI — the intelligent gateway for routing your AI API traffic across Claude, GPT, Gemini and more.</p><p style="margin-bottom: 12px;"><b>🎯 Quick Start:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 Create your API Key</li><li>📋 Use it with any OpenAI-compatible client</li><li>📊 Monitor traffic & usage in real time</li></ul><p style="color: #10b981; font-weight: 600;">Just 1 minute, let\'s get started →</p></div>',
         nextBtn: 'Start 🚀',
         prevBtn: 'Skip'
       },

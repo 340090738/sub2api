@@ -10,90 +10,90 @@ export default {
     login: '登录',
     getStarted: '立即开始',
     goToDashboard: '进入控制台',
-    // 新增：面向用户的价值主张
-    heroSubtitle: '一个密钥，畅用多个 AI 模型',
-    heroDescription: '无需管理多个订阅账号，一站式接入 Claude、GPT、Gemini 等主流 AI 服务',
+    // TrafficAPI 价值主张
+    heroSubtitle: '智能路由，极速扩展。',
+    heroDescription: 'TrafficAPI 是面向企业的智能 AI API 网关，自动将请求路由至 Claude、GPT、Gemini 等多个服务商，具备负载均衡、零停机故障转移与实时流量分析能力。',
     tags: {
-      subscriptionToApi: '订阅转 API',
-      stickySession: '会话保持',
-      realtimeBilling: '按量计费'
+      subscriptionToApi: '智能请求路由',
+      stickySession: '自动负载均衡',
+      realtimeBilling: '实时流量分析'
     },
     // 用户痛点区块
     painPoints: {
       title: '你是否也遇到这些问题？',
       items: {
         expensive: {
-          title: '订阅费用高',
-          desc: '每个 AI 服务都要单独订阅，每月支出越来越多'
+          title: 'AI 成本分散难控',
+          desc: '多个 AI 服务各自订阅、各自付费，没有统一管控，月度支出节节攀升'
         },
         complex: {
-          title: '多账号难管理',
-          desc: '不同平台的账号、密钥分散各处，管理起来很麻烦'
+          title: '多服务商集成混乱',
+          desc: '不同平台的 SDK、凭证和接口地址各不相同，集成和维护成本极高'
         },
         unstable: {
-          title: '服务不稳定',
-          desc: '单一账号容易触发限制，影响正常使用'
+          title: '限流导致服务中断',
+          desc: '单一上游账号触发限流，便可导致整个应用离线，严重影响业务可用性'
         },
         noControl: {
-          title: '用量无法控制',
-          desc: '不知道钱花在哪了，也无法限制团队成员的使用'
+          title: '流量完全不透明',
+          desc: '无从了解各服务商的请求量、延迟分布与实际费用，团队用量更是无法管控'
         }
       }
     },
     // 解决方案区块
     solutions: {
-      title: '我们帮你解决',
-      subtitle: '简单三步，开始省心使用 AI'
+      title: 'TrafficAPI 为你解决',
+      subtitle: '统一网关，路由、均衡、监控 AI 流量全掌握'
     },
     features: {
-      unifiedGateway: '一键接入',
-      unifiedGatewayDesc: '获取一个 API 密钥，即可调用所有已接入的 AI 模型，无需分别申请。',
-      multiAccount: '稳定可靠',
-      multiAccountDesc: '智能调度多个上游账号，自动切换和负载均衡，告别频繁报错。',
-      balanceQuota: '用多少付多少',
-      balanceQuotaDesc: '按实际使用量计费，支持设置配额上限，团队用量一目了然。'
+      unifiedGateway: '统一 API 接入点',
+      unifiedGatewayDesc: '一个接入地址，一个 API Key，即可调用所有已接入的 AI 服务商。无需更改 SDK，无需管理多套凭证，迁移零成本。',
+      multiAccount: '智能负载均衡',
+      multiAccountDesc: '流量自动分发至多个上游账号，智能调度与自动故障转移确保服务 7×24 小时在线，彻底告别限流宕机。',
+      balanceQuota: '流量分析与管控',
+      balanceQuotaDesc: '实时监控请求量、响应延迟与各模型费用，按用户或团队设置消费配额，AI 流量全链路可视化、可管控。'
     },
     // 优势对比
     comparison: {
-      title: '为什么选择我们？',
+      title: '为什么选择 TrafficAPI？',
       headers: {
-        feature: '对比项',
-        official: '官方订阅',
-        us: '本平台'
+        feature: '对比维度',
+        official: '直连服务商',
+        us: 'TrafficAPI'
       },
       items: {
         pricing: {
-          feature: '付费方式',
-          official: '固定月费，用不完也付',
-          us: '按量付费，用多少付多少'
+          feature: '计费方式',
+          official: '各服务商固定月费',
+          us: '按请求计费，统一结算'
         },
         models: {
-          feature: '模型选择',
+          feature: '模型覆盖',
           official: '单一服务商',
-          us: '多模型随意切换'
+          us: '任意模型，统一入口'
         },
         management: {
           feature: '账号管理',
-          official: '每个服务单独管理',
-          us: '统一密钥，一站管理'
+          official: '各服务分散管理',
+          us: '统一控制台，一个 Key'
         },
         stability: {
-          feature: '服务稳定性',
-          official: '单账号易触发限制',
-          us: '多账号池，自动切换'
+          feature: '服务可靠性',
+          official: '单账号，无故障转移',
+          us: '多账号池，自动故障转移'
         },
         control: {
-          feature: '用量控制',
-          official: '无法限制',
-          us: '可设配额、查明细'
+          feature: '流量管控',
+          official: '不支持',
+          us: '配额限制 + 详细分析'
         }
       }
     },
     providers: {
-      title: '已支持的 AI 模型',
-      description: '一个 API，多种选择',
-      supported: '已支持',
-      soon: '即将推出',
+      title: '已支持的 AI 服务商',
+      description: '一个网关，接入所有模型',
+      supported: '已上线',
+      soon: '即将支持',
       claude: 'Claude',
       gemini: 'Gemini',
       antigravity: 'Antigravity',
@@ -101,9 +101,9 @@ export default {
     },
     // CTA 区块
     cta: {
-      title: '准备好开始了吗？',
-      description: '注册即可获得免费试用额度，体验一站式 AI 服务',
-      button: '免费注册'
+      title: '开始路由你的 AI 流量',
+      description: '加入正在使用 TrafficAPI 的团队，统一 AI 接入、消除停机风险、获得完整的流量可见性。',
+      button: '免费开始使用'
     },
     footer: {
       allRightsReserved: '保留所有权利。'
@@ -182,8 +182,8 @@ export default {
 
   // Setup Wizard
   setup: {
-    title: 'Sub2API 安装向导',
-    description: '配置您的 Sub2API 实例',
+    title: 'TrafficAPI 安装向导',
+    description: '配置您的 TrafficAPI 实例',
     database: {
       title: '数据库配置',
       description: '连接到您的 PostgreSQL 数据库',
@@ -357,8 +357,8 @@ export default {
 
   // Auth
   auth: {
-    welcomeBack: '欢迎回来',
-    signInToAccount: '登录您的账户以继续',
+    welcomeBack: '欢迎回到 TrafficAPI',
+    signInToAccount: '登录以管理您的 AI 流量、密钥与数据分析',
     signIn: '登录',
     signingIn: '登录中...',
     createAccount: '创建账户',
@@ -1107,7 +1107,7 @@ export default {
         step1: {
           title: '创建 R2 存储桶',
           line1: '登录 Cloudflare Dashboard (dash.cloudflare.com)，左侧菜单选择「R2 对象存储」',
-          line2: '点击「创建存储桶」，输入名称（如 sub2api-backups），选择区域',
+          line2: '点击「创建存储桶」，输入名称（如 trafficapi-backups），选择区域',
           line3: '点击创建完成'
         },
         step2: {
@@ -2115,7 +2115,7 @@ export default {
         antigravityOauth: 'Antigravity OAuth',
         antigravityApikey: '通过 Base URL + API Key 连接',
         soraApiKey: 'API Key / 上游透传',
-        soraApiKeyHint: '连接另一个 Sub2API 或兼容 API',
+        soraApiKeyHint: '连接另一个 TrafficAPI 或兼容 API',
         soraBaseUrlRequired: 'Sora apikey 账号必须设置上游地址（Base URL）',
         soraBaseUrlInvalidScheme: 'Base URL 必须以 http:// 或 https:// 开头',
         upstream: '对接上游',
@@ -2382,7 +2382,7 @@ export default {
       poolMode: '池模式',
       poolModeHint: '上游为账号池时启用，错误不标记本地账号状态',
       poolModeInfo:
-        '启用后，上游 429/403/401 错误将自动重试而不标记账号限流或错误，适用于上游指向另一个 sub2api 实例的场景。',
+        '启用后，上游 429/403/401 错误将自动重试而不标记账号限流或错误，适用于上游指向另一个 trafficapi 实例的场景。',
       poolModeRetryCount: '同账号重试次数',
       poolModeRetryCountHint: '仅在池模式下生效。0 表示不原地重试；默认 {default}，最大 {max}。',
       customErrorCodes: '自定义错误码',
@@ -2874,7 +2874,7 @@ export default {
       geminiImageTestMode: '模式：Gemini 生图测试',
       geminiImagePreview: '生成结果：',
       geminiImageReceived: '已收到第 {count} 张测试图片',
-      soraUpstreamBaseUrlHint: '上游 Sora 服务地址（另一个 Sub2API 实例或兼容 API）',
+      soraUpstreamBaseUrlHint: '上游 Sora 服务地址（另一个 TrafficAPI 实例或兼容 API）',
       soraTestHint: 'Sora 测试将执行连通性与能力检测（/backend/me、订阅信息、Sora2 邀请码与剩余额度）。',
       soraTestTarget: '检测目标：Sora 账号能力',
       soraTestMode: '模式：连通性 + 能力探测',
@@ -4290,7 +4290,7 @@ export default {
       },
       linuxdo: {
         title: 'LinuxDo Connect 登录',
-        description: '配置 LinuxDo Connect OAuth，用于 Sub2API 用户登录',
+        description: '配置 LinuxDo Connect OAuth，用于 TrafficAPI 用户登录',
         enable: '启用 LinuxDo 登录',
         enableHint: '在登录/注册页面显示 LinuxDo 登录入口',
         clientId: 'Client ID',
@@ -4354,7 +4354,7 @@ export default {
           '禁用用户注册、公开页面和自助服务功能。仅管理员可以登录和管理平台。',
         siteName: '站点名称',
         siteNameHint: '显示在邮件和页面标题中',
-        siteNamePlaceholder: 'Sub2API',
+        siteNamePlaceholder: 'TrafficAPI',
         siteSubtitle: '站点副标题',
         siteSubtitleHint: '显示在登录和注册页面',
         siteSubtitlePlaceholder: '订阅转 API 转换平台',
@@ -4455,7 +4455,7 @@ export default {
         fromEmail: '发件人邮箱',
         fromEmailPlaceholder: "noreply{'@'}example.com",
         fromName: '发件人名称',
-        fromNamePlaceholder: 'Sub2API',
+        fromNamePlaceholder: 'TrafficAPI',
         useTls: '使用 TLS',
         useTlsHint: '为 SMTP 连接启用 TLS 加密'
       },
@@ -4883,16 +4883,16 @@ export default {
     // Admin tour steps
     admin: {
       welcome: {
-        title: '👋 欢迎使用 Sub2API',
+        title: '👋 欢迎使用 TrafficAPI',
         description:
-          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Sub2API 是一个强大的 AI 服务中转平台，让您轻松管理和分发 AI 服务。</p><p style="margin-bottom: 12px;"><b>🎯 核心功能：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>📦 <b>分组管理</b> - 创建不同的服务套餐（VIP、免费试用等）</li><li>🔗 <b>账号池</b> - 连接多个上游 AI 服务商账号</li><li>🔑 <b>密钥分发</b> - 为用户生成独立的 API Key</li><li>💰 <b>计费管理</b> - 灵活的费率和配额控制</li></ul><p style="color: #10b981; font-weight: 600;">接下来，我们将用 3 分钟带您完成首次配置 →</p></div>',
+          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">TrafficAPI 是智能 AI 流量网关，帮助您统一路由、负载均衡并实时监控多个 AI 服务商的请求流量。</p><p style="margin-bottom: 12px;"><b>🎯 核心能力：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>📦 <b>流量分组</b> - 按路由策略创建服务套餐（VIP、免费试用等）</li><li>🔗 <b>账号池</b> - 连接多个上游账号，实现负载均衡与故障转移</li><li>🔑 <b>密钥分发</b> - 为用户生成独立 API Key，支持配额管控</li><li>📊 <b>流量分析</b> - 实时查看请求量、响应延迟与费用</li></ul><p style="color: #10b981; font-weight: 600;">接下来，我们将用 3 分钟带您完成首次配置 →</p></div>',
         nextBtn: '开始配置 🚀',
         prevBtn: '跳过'
       },
       groupManage: {
         title: '📦 第一步：分组管理',
         description:
-          '<div style="line-height: 1.7;"><p style="margin-bottom: 12px;"><b>什么是分组？</b></p><p style="margin-bottom: 12px;">分组是 Sub2API 的核心概念，它就像一个"服务套餐"：</p><ul style="margin-left: 20px; margin-bottom: 12px; font-size: 13px;"><li>🎯 每个分组可以包含多个上游账号</li><li>💰 每个分组有独立的计费倍率</li><li>👥 可以设置为公开或专属分组</li></ul><p style="margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;"><b>💡 示例：</b>您可以创建"VIP专线"（高倍率）和"免费试用"（低倍率）两个分组</p><p style="margin-top: 16px; color: #10b981; font-weight: 600;">👉 点击左侧的"分组管理"开始</p></div>'
+          '<div style="line-height: 1.7;"><p style="margin-bottom: 12px;"><b>什么是分组？</b></p><p style="margin-bottom: 12px;">分组是 TrafficAPI 的核心流量管理单元，类似一个"服务套餐"：</p><ul style="margin-left: 20px; margin-bottom: 12px; font-size: 13px;"><li>🎯 每个分组可以包含多个上游账号</li><li>💰 每个分组有独立的计费倍率</li><li>👥 可以设置为公开或专属分组</li></ul><p style="margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;"><b>💡 示例：</b>您可以创建"VIP专线"（高倍率）和"免费试用"（低倍率）两个分组</p><p style="margin-top: 16px; color: #10b981; font-weight: 600;">👉 点击左侧的"分组管理"开始</p></div>'
       },
       createGroup: {
         title: '➕ 创建新分组',
@@ -5004,9 +5004,9 @@ export default {
     // User tour steps
     user: {
       welcome: {
-        title: '👋 欢迎使用 Sub2API',
+        title: '👋 欢迎使用 TrafficAPI',
         description:
-          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">您好！欢迎来到 Sub2API AI 服务平台。</p><p style="margin-bottom: 12px;"><b>🎯 快速开始：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 创建 API 密钥</li><li>📋 复制密钥到您的应用</li><li>🚀 开始使用 AI 服务</li></ul><p style="color: #10b981; font-weight: 600;">只需 1 分钟，让我们开始吧 →</p></div>',
+          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">您好！欢迎来到 TrafficAPI —— 智能路由 Claude、GPT、Gemini 等多服务商 AI 请求的统一网关平台。</p><p style="margin-bottom: 12px;"><b>🎯 快速开始：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 创建您的 API 密钥</li><li>📋 在任意兼容 OpenAI 的客户端中使用</li><li>📊 实时查看流量与使用情况</li></ul><p style="color: #10b981; font-weight: 600;">只需 1 分钟，让我们开始吧 →</p></div>',
         nextBtn: '开始 🚀',
         prevBtn: '跳过'
       },

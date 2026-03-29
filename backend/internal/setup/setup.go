@@ -14,7 +14,6 @@ import (
 
 	"github.com/Wei-Shaw/sub2api/internal/config"
 	"github.com/Wei-Shaw/sub2api/internal/pkg/logger"
-	"github.com/Wei-Shaw/sub2api/internal/repository"
 	"github.com/Wei-Shaw/sub2api/internal/service"
 
 	_ "github.com/lib/pq"
@@ -345,9 +344,10 @@ func initializeDatabase(cfg *SetupConfig) error {
 		}
 	}()
 
-	migrationCtx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
-	defer cancel()
-	return repository.ApplyMigrations(migrationCtx, db)
+	// migrationCtx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	// defer cancel()
+	// return repository.ApplyMigrations(migrationCtx, db)
+	return nil
 }
 
 func createAdminUser(cfg *SetupConfig) (bool, string, error) {
